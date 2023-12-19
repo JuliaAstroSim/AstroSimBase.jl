@@ -1,0 +1,12 @@
+name = "AstroSimBase"
+uuid = "c6a34d98-f626-4d8d-b450-a3f124eaada6"
+authors = ["islent <leoislent@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+PrecompileTools = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+PrecompileTools = "1"
+julia = "1.6"

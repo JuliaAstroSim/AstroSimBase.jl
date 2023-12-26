@@ -38,4 +38,6 @@ end
     @test_broken need_to_interrupt("output")
     interrupt("output")
     @test need_to_interrupt("output")
+    @test need_to_interrupt("output", remove = true)
+    @test !isfile("output/stop")
 end

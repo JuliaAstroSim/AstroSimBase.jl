@@ -74,8 +74,11 @@ function need_to_interrupt(OutputDir::String)
 
     If there is a file named `stop` in folder `OutputDir`, return true; else, return `false`.
 """
-function need_to_interrupt(OutputDir::String)
+function need_to_interrupt(OutputDir::String; remove = false)
     if isfile(joinpath(OutputDir, "stop"))
+        if remove
+            rm(joinpath(OutputDir, "stop"), force = true)
+        end
         return true
     else
         return false

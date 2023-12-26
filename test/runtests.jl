@@ -36,7 +36,6 @@ end
     mkpathIfNotExist(folder)
 
     @test_broken need_to_interrupt("output")
-    f = open("output/stop", "w")
-    close(f)
+    interrupt("output")
     @test need_to_interrupt("output")
 end

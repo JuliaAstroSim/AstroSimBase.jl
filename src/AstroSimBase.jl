@@ -10,7 +10,7 @@ export BoundaryCondition, Periodic, Dirichlet, Vacuum, Newman, Reflective
 
 export traitstring, emptyfunction
 export mkpathIfNotExist
-export need_to_interrupt
+export need_to_interrupt, interrupt
 
 # Traits
 abstract type LoggingMode end
@@ -80,6 +80,11 @@ function need_to_interrupt(OutputDir::String)
     else
         return false
     end
+end
+
+function interrupt(OutputDir::String)
+    f = open(joinpath(OutputDir, "stop"), "w")
+    close(f)
 end
 
 include("precompile.jl")

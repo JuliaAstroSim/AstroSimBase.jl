@@ -39,5 +39,8 @@ end
     interrupt("output")
     @test need_to_interrupt("output")
     @test need_to_interrupt("output", remove = true)
+
+    @test isfile("output/stop")
+    sleep(0.2)
     @test !isfile("output/stop")
 end

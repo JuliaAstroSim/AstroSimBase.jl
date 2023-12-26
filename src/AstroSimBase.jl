@@ -73,11 +73,18 @@ end
 function need_to_interrupt(OutputDir::String)
 
     If there is a file named `stop` in folder `OutputDir`, return true; else, return `false`.
+
+## Keywords
+- `remove`: if true, remove the `stop` file asynchronously
+- `delay`: if true, wait for 0.1 second to avoid file locking error
 """
-function need_to_interrupt(OutputDir::String; remove = false)
+function need_to_interrupt(OutputDir::String; remove = false, delay = true)
     if isfile(joinpath(OutputDir, "stop"))
         if remove
-            rm(joinpath(OutputDir, "stop"), force = true)
+            Threads.@spawn begin
+                delay && sleep(0.1)
+                rm(joinpath(OutputDir, "stop"), force = true)
+            end
         end
         return true
     else

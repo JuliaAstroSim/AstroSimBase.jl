@@ -43,4 +43,10 @@ end
     @test isfile("output/stop")
     sleep(0.2)
     @test !isfile("output/stop")
+
+    r = randin(Float32,2,3)
+    @test 2<=r<=3
+
+    r = randin(2,3)
+    @test 2<=r<=3
 end

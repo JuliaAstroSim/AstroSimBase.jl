@@ -9,6 +9,7 @@ export TimeIntegration, Euler, Leapfrog, RK4
 export BoundaryCondition, Periodic, Dirichlet, Vacuum, Newman, Reflective
 
 export traitstring, emptyfunction
+export randin
 export mkpathIfNotExist
 export need_to_interrupt, interrupt
 
@@ -96,6 +97,15 @@ function interrupt(OutputDir::String)
     f = open(joinpath(OutputDir, "stop"), "w")
     close(f)
 end
+
+"""
+function randin(T, a, b)
+function randin(a, b)
+
+Generate uniform random number in `[a,b]`. It avoids error from `rand(a:b)` where `a` and `b` are `Unitful.Quantity`
+"""
+randin(T, a, b) = T(rand(T) * (b-a) + a)
+randin(a, b) = rand() * (b-a) + a
 
 include("precompile.jl")
 

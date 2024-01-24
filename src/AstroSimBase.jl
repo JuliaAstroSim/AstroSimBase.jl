@@ -1,6 +1,7 @@
 module AstroSimBase
 
 using PrecompileTools
+import Distributed.interrupt
 
 export LoggingMode, NormalMode, ProgressMode, SilentMode
 export GravityModel, Newton, MOND1983Milgrom, QUMOND

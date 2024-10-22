@@ -15,6 +15,9 @@ export randin
 export mkpathIfNotExist
 export need_to_interrupt, interrupt
 
+export findfirstzero, findzero, findfirstvalue, findvalue
+export middle_exp
+
 # Traits
 abstract type LoggingMode end
 struct NormalMode <: LoggingMode end
@@ -85,6 +88,11 @@ function emptyfunction(args...) end
 """
 function emptyfunction(args...) end
 
+"""
+function mkpathIfNotExist(dir)
+
+    If the `dir` does not exist, create the path.
+"""
 function mkpathIfNotExist(dir)
     if !isdir(dir)
         mkpath(dir)
@@ -127,6 +135,53 @@ Generate uniform random number in `[a,b]`. It avoids error from `rand(a:b)` wher
 """
 randin(T, a, b) = T(rand(T) * (b-a) + a)
 randin(a, b) = rand() * (b-a) + a
+
+
+"""
+function findfirstzero(a::AbstractVector)
+
+    find first zero point of discrete value array
+"""
+function findfirstzero(a::AbstractVector)
+	findfirst(!iszero, diff(sign.(a)))
+end
+
+"""
+function findzero(a::AbstractVector)
+    
+    find all zero points (indices of left-hand-side and right-hand-side boundaries) of discrete value array
+"""
+function findzero(a::AbstractVector)
+    findall(!iszero, diff(sign.(a)))
+end
+
+"""
+function findfirstvalue(a::AbstractVector, v)
+
+    find zero point of discrete value array
+"""
+function findfirstvalue(a::AbstractVector, v)
+    findfirstzero(a .- v)
+end
+
+"""
+function findvalue(a::AbstractVector, v)
+
+    find all value points (indices of left-hand-side and right-hand-side boundaries) of discrete value array
+"""
+function findvalue(a::AbstractVector, v)
+    findzero(a .- v)
+end
+
+
+"""
+function middle_exp(a::AbstractVector)
+
+    Find 1/e value ralative to maximum and minimum
+"""
+function middle_exp(a::AbstractVector)
+    (maximum(a) - minimum(a))/exp(1) - minimum(a)
+end
 
 include("precompile.jl")
 

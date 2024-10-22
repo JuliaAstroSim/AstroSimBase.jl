@@ -49,4 +49,25 @@ end
 
     r = randin(2,3)
     @test 2<=r<=3
+
+    @test middle_exp([0,1,exp(1),1,0]) == 1
+
+    ## find functions
+    @test findfirstzero([-1, 0, 1]) == 1
+
+    @test all(
+        findzero([-1, 0, 1, 0, -1]) .== [1, 2, 3, 4]
+    )
+    @test all(
+        findzero([-2, -1, 0, 1, 2]) .== [2, 3]
+    )
+    
+    @test findfirstvalue([1,2,3], 2) == 1
+    
+    @test all(
+        findvalue([1,2,3,2,1], 2) .== [1, 2, 3, 4]
+    )
+    @test all(
+        findvalue([1,2,3,4,5], 3) .== [2, 3]
+    )
 end
